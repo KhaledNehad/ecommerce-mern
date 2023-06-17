@@ -3,7 +3,7 @@ import { Product } from './types/Product';
 export const sampleProduct: Product[] = [
   {
     name: 'Nike Victory t-shirt',
-    slug: 'Nike Victory t-shirt',
+    slug: 'nike-victory-t-shirt',
     image: '../images/tshirt2.jpeg',
     category: 'Shirts',
     brand: 'Nike',
@@ -15,7 +15,7 @@ export const sampleProduct: Product[] = [
   },
   {
     name: 'Adidas Fit shirt',
-    slug: 'Adidas Fit shirt',
+    slug: 'adidas-fit-shirt',
     image: '../images/tshirt8.jpeg',
     category: 'Shirts',
     brand: 'Adidas',
@@ -27,7 +27,7 @@ export const sampleProduct: Product[] = [
   },
   {
     name: 'Lacoste Jeans Pants',
-    slug: 'Lacoste Jeans Pants',
+    slug: 'lacoste-jeans-pants',
     image: '../images/pants4.jpeg',
     category: 'Pants',
     brand: 'Lacoste',
@@ -39,7 +39,7 @@ export const sampleProduct: Product[] = [
   },
   {
     name: 'Lacoste Red t-shirt',
-    slug: 'Lacoste Red t-shirt',
+    slug: 'lacoste-red-t-shirt',
     image: '../images/tshirt5.jpeg',
     category: 'Shirts',
     brand: 'Lacoste',
@@ -51,7 +51,7 @@ export const sampleProduct: Product[] = [
   },
   {
     name: 'Nike Slim pants',
-    slug: 'Nike Slim pants',
+    slug: 'nike-slim-pants',
     image: '../images/pants3.jpeg',
     category: 'Pants',
     brand: 'Nike',
@@ -63,7 +63,7 @@ export const sampleProduct: Product[] = [
   },
   {
     name: 'Nike Slim t-shirt',
-    slug: 'Nike Slim t-shirt',
+    slug: 'nike-slim-t-shirt',
     image: '../images/tshirt4.jpeg',
     category: 'Shirts',
     brand: 'Nike',
