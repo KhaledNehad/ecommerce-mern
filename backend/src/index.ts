@@ -1,7 +1,24 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import cors from 'cors';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import { productRouter } from './router/productRouter';
+import { seedRouter } from './router/seedRouter';
 
-import { sampleProduct } from './data';
+dotenv.config();
+
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/ecommrcedb';
+
+mongoose.set('strictQuery', true);
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log('connected to mongodb');
+  })
+  .catch(() => {
+    console.log('Error with mongodb');
+  });
 
 const app = express();
 
@@ -12,13 +29,8 @@ app.use(
   })
 );
 
-app.get('/api/products', (req: Request, res: Response) => {
-  res.json(sampleProduct);
-});
-
-app.get('/api/products/:slug', (req: Request, res: Response) => {
-  res.json(sampleProduct.find((x) => x.slug === req.params.slug));
-});
+app.use('/api/products', productRouter);
+app.use('/api/seed', seedRouter);
 
 const PORT = 4000;
 
