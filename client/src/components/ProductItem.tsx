@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { Store } from '../store';
 import { CartItem } from '../types/Cart';
 import { convertProductToCartItem } from '../utils';
+import { toast } from 'react-toastify';
 
 export default function ProductItem({ product }: { product: Product }) {
   const { state, dispatch } = useContext(Store);
@@ -19,14 +20,14 @@ export default function ProductItem({ product }: { product: Product }) {
     const quantity = existItem ? existItem.quantity + 1 : 1;
     console.log(quantity);
     if (product.countInStock < quantity) {
-      alert('Sorry, Product is out of stock');
+      toast.warn('Sorry, Product is out of stock');
       return;
-    } else {
-      dispatch({
-        type: 'CART_ADD_ITEM',
-        payload: { ...item, quantity },
-      });
     }
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: { ...item, quantity },
+    });
+    toast.success('Product added to the cart');
   };
 
   return (
