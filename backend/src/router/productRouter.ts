@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { ProductModel } from '../models/productModel';
 
@@ -14,7 +14,7 @@ productRouter.get(
 
 productRouter.get(
   '/slug/:slug',
-  asyncHandler(async (req, res) => {
+  asyncHandler(async (req: Request, res: Response) => {
     const product = await ProductModel.findOne({ slug: req.params.slug });
     if (product) {
       res.json(product);

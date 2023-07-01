@@ -1,7 +1,8 @@
 import express, { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
 import { ProductModel } from '../models/productModel';
-import { sampleProduct } from '../data';
+import { UserModel } from '../models/userModel';
+import { sampleProduct, sampleUsers } from '../data';
 
 export const seedRouter = express.Router();
 
@@ -9,8 +10,11 @@ seedRouter.get(
   '/',
   asyncHandler(async (req: Request, res: Response) => {
     await ProductModel.deleteMany({});
+    const createProducts = await ProductModel.insertMany(sampleProduct);
 
-    const createProducts = ProductModel.insertMany(sampleProduct);
-    res.send({ createProducts });
+    await UserModel.deleteMany({});
+    const createUsers = await UserModel.insertMany(sampleUsers);
+
+    res.send({ createProducts, createUsers });
   })
 );
