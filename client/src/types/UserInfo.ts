@@ -1,6 +1,6 @@
 export type UserInfo = {
   name: string;
   email: string;
-  tocken: string;
+  token: string;
   isAdmin: boolean;
 };
