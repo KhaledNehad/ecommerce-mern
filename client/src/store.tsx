@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable no-case-declarations */
-import React, { useReducer, createContext } from 'react';
+import React from 'react';
 import { Cart, CartItem } from './types/Cart';
 import { UserInfo } from './types/UserInfo';
 
@@ -14,22 +14,23 @@ const initialState: AppState = {
   userInfo: localStorage.getItem('userInfo')
     ? JSON.parse(localStorage.getItem('userInfo')!)
     : null,
+
   mode: localStorage.getItem('mode')
     ? localStorage.getItem('mode')!
     : window.matchMedia &&
-      window.matchMedia('(prefers-color-schema: dark)').matches
+      window.matchMedia('(prefers-color-scheme: dark)').matches
     ? 'dark'
     : 'light',
   cart: {
-    cartItems: localStorage.getItem('cartItem')
-      ? JSON.parse(localStorage.getItem('cartItem')!)
+    cartItems: localStorage.getItem('cartItems')
+      ? JSON.parse(localStorage.getItem('cartItems')!)
       : [],
     shippingAddress: localStorage.getItem('shippingAddress')
       ? JSON.parse(localStorage.getItem('shippingAddress')!)
       : {},
     paymentMethod: localStorage.getItem('paymentMethod')
       ? localStorage.getItem('paymentMethod')!
-      : 'Paypal',
+      : 'PayPal',
     itemsPrice: 0,
     shippingPrice: 0,
     taxPrice: 0,
@@ -53,7 +54,6 @@ function reducer(state: AppState, action: Action): AppState {
       const existItem = state.cart.cartItems.find(
         (item: CartItem) => item._id === newItem._id
       );
-
       const cartItems = existItem
         ? state.cart.cartItems.map((item: CartItem) =>
             item._id === existItem._id ? newItem : item
@@ -61,20 +61,18 @@ function reducer(state: AppState, action: Action): AppState {
         : [...state.cart.cartItems, newItem];
 
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
       return { ...state, cart: { ...state.cart, cartItems } };
+
     case 'CART_REMOVE_ITEM': {
       const cartItems = state.cart.cartItems.filter(
         (item: CartItem) => item._id !== action.payload._id
       );
       localStorage.setItem('cartItems', JSON.stringify(cartItems));
-      return {
-        ...state,
-        cart: { ...state.cart, cartItems },
-      };
+      return { ...state, cart: { ...state.cart, cartItems } };
     }
     case 'USER_SIGNIN':
       return { ...state, userInfo: action.payload };
-
     case 'USER_SIGNOUT':
       return {
         mode:
@@ -84,7 +82,7 @@ function reducer(state: AppState, action: Action): AppState {
             : 'light',
         cart: {
           cartItems: [],
-          paymentMethod: 'Paypal',
+          paymentMethod: 'PayPal',
           shippingAddress: {
             fullName: '',
             address: '',
@@ -105,16 +103,17 @@ function reducer(state: AppState, action: Action): AppState {
 
 const defaultDispatch: React.Dispatch<Action> = () => initialState;
 
-const Store = createContext({
+const Store = React.createContext({
   state: initialState,
   dispatch: defaultDispatch,
 });
 
 function StoreProvider(props: React.PropsWithChildren<object>) {
-  const [state, dispatch] = useReducer<React.Reducer<AppState, Action>>(
+  const [state, dispatch] = React.useReducer<React.Reducer<AppState, Action>>(
     reducer,
     initialState
   );
+
   return <Store.Provider value={{ state, dispatch }} {...props} />;
 }
 

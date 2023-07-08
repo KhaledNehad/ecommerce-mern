@@ -18,7 +18,6 @@ export default function ProductItem({ product }: { product: Product }) {
   const addToCartHandler = (item: CartItem) => {
     const existItem = cartItems.find((x) => x._id === product._id);
     const quantity = existItem ? existItem.quantity + 1 : 1;
-    console.log(quantity);
     if (product.countInStock < quantity) {
       toast.warn('Sorry, Product is out of stock');
       return;
