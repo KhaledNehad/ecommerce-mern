@@ -21,6 +21,7 @@ import SigninPage from './pages/SigninPage.tsx';
 import SignupPage from './pages/SignupPage.tsx';
 
 import ShippingPage from './pages/ShippingPage.tsx';
+import PaymentMethodPage from './pages/PaymentMethodPage.tsx';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,7 +31,8 @@ const router = createBrowserRouter(
       <Route path='cart' element={<CartPage />} />
       <Route path='signin' element={<SigninPage />} />
       <Route path='signup' element={<SignupPage />} />
-      <Route path='Shipping' element={<ShippingPage />} />
+      <Route path='shipping' element={<ShippingPage />} />
+      <Route path='payment' element={<PaymentMethodPage />} />
     </Route>
   )
 );
